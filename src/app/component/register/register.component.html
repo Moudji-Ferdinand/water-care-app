@@ -1,0 +1,51 @@
+<div class="row" style="background-image: url('/assets/images/waterCare.jpg'); background-size: cover;width: 100%; height: 100%" >
+  <!--      <div class="col-8" style="">-->
+  <!--        &lt;!&ndash; Your content goes here &ndash;&gt;-->
+  <!--      </div>-->
+  <div class="col-4 offset-md-8" style="margin-top: 10%">
+    <mat-card class="p-3">
+      <h2>
+        Create Account
+      </h2>
+      <form (ngSubmit)="register()" #form="ngForm" aria-labelledby="title">
+        <div class="row">
+          <mat-form-field fullWidth>
+            <input matInput [(ngModel)]="useremail" #useremail1="ngModel" name="useremail1"
+                   pattern=".+@.+\..+" placeholder="Enter your email" autofocus
+                   [attr.aria-invalid]="useremail1.invalid && useremail1.touched ? true : null">
+            <mat-error *ngIf="useremail1.invalid && useremail1.errors">
+              Email address is needed
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field fullWidth>
+            <input matInput [(ngModel)]="password" #password1="ngModel" name="password"
+                   [type]="hide ? 'text' : 'password'" id="input-password" placeholder="Enter password"
+                   [attr.aria-invalid]="password1.invalid && password1.touched ? true : null">
+            <mat-icon class="icon-display" color="primary" matSuffix (click)="hide = !hide">
+              {{ hide ? 'visibility' : 'visibility_off' }}
+            </mat-icon>
+            <mat-error *ngIf="password1.invalid && password1.errors">
+              Password is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" [class.btn-pulse]="submitted">
+          Register
+        </button>
+      </form>
+      <!--              <section class="mt-4">-->
+      <!--                <a routerLink="../request-password">Forgot password</a>-->
+      <!--              </section>-->
+      <section class="mt-4 mb-3">
+        <p>Already have an Account?
+          <span>
+            <a routerLink="../login">Login</a>
+          </span>
+        </p>
+      </section>
+    </mat-card>
+  </div>
+</div>
+

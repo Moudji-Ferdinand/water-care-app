@@ -1,0 +1,238 @@
+
+<div class="container">
+  <div class = "row mt-5">
+    <p style="font-weight: normal; font-size: 30px">
+      Summary
+    </p>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="row mt-5">
+    <div class="col-6">
+      <div class="row">
+        <h2>
+          Experimental Setup
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-8">
+          <div class="row">
+            <div class="col-4">
+              <p>
+                ItemID:
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                1728cefd
+              </p>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>
+                Box Code:
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                YGPPDK
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>
+                Cuvette no:
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                04
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>
+                Model:
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                NanoCuvette One
+              </p>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>
+                Created:
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                {{date.toLocaleString()}}
+              </p>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>
+                Reference:
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                Water(n=1.333215nD)
+              </p>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>
+                Files:
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                ...
+              </p>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+      <div class="row mt-5">
+        <h2>
+          Sample Attributes
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-10">
+          <div class="row mt-1" style="border: 1px solid; border-radius: 5px; font-size: 16px">
+            <div class="col p-2" style="background-color: lightblue">
+              Sample name
+            </div>
+            <div class="col p-2">
+              400 mgpemL BSA in PBS
+            </div>
+          </div>
+          <div class="row mt-1 " style="border: 1px solid; border-radius: 5px; font-size: 16px">
+            <div class="col p-2" style="background-color: lightblue">
+              Protocol name
+            </div>
+            <div class="col p-2">
+              Droplet 500nL
+            </div>
+          </div>
+          <div class="row mt-1 " style="border: 1px solid; border-radius: 5px; font-size: 16px">
+            <div class="col p-2" style="background-color: lightblue">
+              Analyte
+            </div>
+            <div class="col p-2">
+              Bovine Serium Albumin
+            </div>
+          </div>
+          <div class="row mt-1 " style="border: 1px solid; border-radius: 5px; font-size: 16px">
+            <div class="col p-2" style="background-color: lightblue">
+              Solvent
+            </div>
+            <div class="col p-2">
+              PBS Buffer pH7.4
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="row mt-5">
+        <h2>
+          Notes
+
+        </h2>
+
+
+      </div>
+      <div class="row">
+
+        <ng-form>
+             <textarea placeholder="Here you can add notes about your sample" style="height: 100px; width: 500px; border: 1px solid #ccc; border-radius: 5px;">
+
+
+        </textarea>
+
+        </ng-form>
+
+
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="row mt-5">
+        <h2>
+          Results
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col">
+              Refractive Index:
+            </div>
+            <div class="col">
+              1.40413245 nD
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col">
+              Reference fit quality:
+            </div>
+            <div class="col">
+              89.2773%
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col">
+              Sample fit quality:
+            </div>
+            <div class="col">
+              80.2773%
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col">
+              Protein Concentration:
+            </div>
+            <div class="col">
+              404.29 mg/mL
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <h2>
+          Plots
+        </h2>
+      </div>
+      <!--     <img src="assets/images/sample_graph.jpg">-->
+      <!--      <div chart [chart]="chart"></div>-->
+      <div echarts [options]="chartOption" class="demo-chart"></div>
+
+    </div>
+
+
+  </div>
+
+</div>
+
