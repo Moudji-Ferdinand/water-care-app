@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { SpectroData } from '../../model/spectro-data';
 import { DataService } from '../../shared/data.service';
-import {AuthService} from '../../shared/auth.service';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,54 +10,83 @@ import {AuthService} from '../../shared/auth.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  intensities = [0.5, 0.8, 0.6, 0.9, 0.7];
-  wavelength = [400, 450, 500, 550, 600];
-  date: Date = new Date();
-
-  spectroDatas: SpectroData[] = [];
-  chartOption: EChartsOption = {
+  options: EChartsOption = {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985',
+        },
+      },
+    },
+    grid: {
+      right: '25%',
+      containLabel: true,
+    },
     xAxis: {
-      type: 'category',
-      data: [0.5, 0.8, 0.6, 0.9, 0.7],
+      type: 'value'
     },
     yAxis: {
-      type: 'value',
+      type: 'category',
+      data: []
     },
     series: [
       {
-        data: [820, 932, 1290, 1330, 1320],
+        data: [],
         type: 'line',
-      },
+        smooth: true
+      }
     ],
   };
+
+  updateOptions = null;
+  testStatus = false;
+
+  date: Date = new Date();
+  spectroDatas: SpectroData[] = [];
 
   constructor(
     private data: DataService,
     private authService: AuthService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
-    const spectroData = new SpectroData();
+    this.data.getLiveUpdates().subscribe((res) => {
+      console.log(res);
+      this.testStatus = false;
+      this.data.setTestStatus(this.testStatus).then((res1) => {
+      });
 
-    // spectroData.intensities = this.intensities;
-    // spectroData.wavelength = this.wavelength;
-    // const spectroDataObject = spectroData.toPlainObject();
-    //
-    // this.data.addSpectroData(spectroDataObject)
-    //   .then((result) => {
-    //     console.log('Add Spectro Data Result:', result);
-    //     // Additional code to handle the result if needed
-    //
-    //     // Update chart data after successfully adding spectro data
-    //     // this.chartOption.series[0].data = spectroData.intensities;
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error adding spectro data:', error);
-    //     // Additional code to handle the error if needed
-    //   });
+      // @ts-ignore
+      const intensities = res.intensities;
+      // @ts-ignore
+      const wavelengths = res.wavelength;
 
+      console.log('Max Wavelength:', Math.max(...wavelengths));
+      const series1 = {
+        name: 'Test one',
+        type: 'line',
+        smooth: true,
+        data: intensities.map((intensity, index) => [wavelengths[index], intensity]),
+      };
+
+      this.updateOptions = {
+        // xAxis: [{ data: intensities.sort((a, b) => a - b) }],
+        // yAxis: [{ data: wavelengths.sort((a, b) => a - b) }],
+        series: [series1],
+      };
+      // const intensities = res.intensities;
+      // const wavelengths = this.spectroDatas[0].wavelength;
+      //
+      // console.log('Max Wavelength:', Math.max(...wavelengths));
+      // const series1 = {
+      //   name: 'Test one',
+      //   type: 'line',
+      //   smooth: true,
+      //   data: intensities.map((intensity, index) => [wavelengths[index], intensity]),
+      // };
+    });
     this.data.getAllSpectroData().subscribe((res) => {
       this.spectroDatas = res.map((e: any) => {
         const data = e.payload.doc.data();
@@ -65,22 +94,40 @@ export class DashboardComponent implements OnInit {
         return data;
       });
 
-      // Assuming the first element in spectroDatas has the data you want to display
       if (this.spectroDatas.length > 0) {
-        console.log(this.chartOption.series[0]?.data);
+        const intensities = this.spectroDatas[0].intensities;
+        const wavelengths = this.spectroDatas[0].wavelength;
 
-        this.chartOption.series[0].data = this.spectroDatas[0].wavelength;
+        console.log('Max Wavelength:', Math.max(...wavelengths));
+        const series1 = {
+          name: 'Test one',
+          type: 'line',
+          smooth: true,
+          data: intensities.map((intensity, index) => [wavelengths[index], intensity]),
+        };
 
-        // Log to check the updated data
-        console.log(this.chartOption.series[0]?.data);
+        this.updateOptions = {
+          // xAxis: [{ data: intensities.sort((a, b) => a - b) }],
+          // yAxis: [{ data: wavelengths.sort((a, b) => a - b) }],
+          series: [series1],
+        };
+
       } else {
-        console.error('No spectroData available.'); // Handle the case when there's no data
+        console.error('No spectroData available.');
       }
     }, error => {
       console.log('Error while fetching the results:', error);
     });
   }
+
   logout() {
     this.authService.logout();
+  }
+  startTest() {
+    this.testStatus = true;
+    this.data.setTestStatus(this.testStatus).then((res) => {
+      console.log(res);
+    });
+    // upload change set status to true
   }
 }

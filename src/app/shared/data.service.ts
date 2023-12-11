@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
+import { AngularFireDatabase} from '@angular/fire/compat/database';
+
 import {SpectroData} from '../model/spectro-data';
 
 @Injectable({
@@ -8,7 +10,8 @@ import {SpectroData} from '../model/spectro-data';
 export class DataService {
 
   constructor(
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private db: AngularFireDatabase
   ) { }
 
   // Add a sample data
@@ -18,5 +21,13 @@ export class DataService {
   }
   getAllSpectroData() {
     return this.afs.collection('/SpectroData').snapshotChanges();
+  }
+  getLiveUpdates() {
+    return this.db.object('/SpectroData_A01').valueChanges();
+  }
+  setTestStatus(status) {
+    const testRef = this.db.object('/Test');
+    // set() for destructive updates
+    return  testRef.set({ testStatus: status});
   }
 }

@@ -12,7 +12,8 @@ export const environment = {
     storageBucket: 'mdb2-db.appspot.com',
     messagingSenderId: '213362634661',
     appId: '1:213362634661:web:5ab3e7d0dd2b877facc24c',
-    measurementId: 'G-S013SSNRMX'
+    measurementId: 'G-S013SSNRMX',
+    databaseURL: 'https://mdb2-db-default-rtdb.europe-west1.firebasedatabase.app'
   }
 };
 
