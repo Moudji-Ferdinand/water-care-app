@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.data.getLiveUpdates().subscribe((res) => {
-      console.log(res);
+      console.log('results:' + res);
       this.testStatus = false;
       this.data.setTestStatus(this.testStatus).then((res1) => {
       });
@@ -126,7 +126,7 @@ export class DashboardComponent implements OnInit {
   startTest() {
     this.testStatus = true;
     this.data.setTestStatus(this.testStatus).then((res) => {
-      console.log(res);
+      // console.log(res);
     });
     // upload change set status to true
   }

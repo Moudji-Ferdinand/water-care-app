@@ -28,6 +28,6 @@ export class DataService {
   setTestStatus(status) {
     const testRef = this.db.object('/Test');
     // set() for destructive updates
-    return  testRef.set({ testStatus: status});
+    return  testRef.set({ testStatus: status, testStatus1: 'start'});
   }
 }

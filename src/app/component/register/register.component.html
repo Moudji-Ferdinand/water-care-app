@@ -31,6 +31,20 @@
             </mat-error>
           </mat-form-field>
         </div>
+        <div class="row">
+          <mat-form-field fullWidth>
+            <input matInput [(ngModel)]="password" #password1="ngModel" name="password"
+                   [type]="hide ? 'text' : 'password'" id="input-password1" placeholder="Confirm password"
+                   [attr.aria-invalid]="password1.invalid && password1.touched ? true : null">
+            <mat-icon class="icon-display" color="primary" matSuffix (click)="hide = !hide">
+              {{ hide ? 'visibility' : 'visibility_off' }}
+            </mat-icon>
+            <mat-error *ngIf="password1.invalid && password1.errors">
+              Password is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
         <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" [class.btn-pulse]="submitted">
           Register
         </button>
